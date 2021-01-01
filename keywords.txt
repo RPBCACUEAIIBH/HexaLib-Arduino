@@ -1,0 +1,15 @@
+HexaLib	KEYWORD1
+
+### HexaLog ###
+Log	KEYWORD2
+LogSettings	KEYWORD2
+
+### RNGInit ###
+RNGInit	KEYWORD2
+
+### DynamicID ###
+DynamicID	KEYWORD1
+Create	KEYWORD2
+Check	KEYWORD2
+Delete	KEYWORD2
+User	KEYWORD2
