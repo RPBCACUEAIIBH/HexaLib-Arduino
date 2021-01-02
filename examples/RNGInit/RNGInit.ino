@@ -13,7 +13,7 @@ void setup ()
 
 #elif ESP8266
 
-void setup()
+void setup ()
 {
   // ESP8266
   EEPROM.begin (4096);
@@ -27,5 +27,5 @@ void setup()
 
 #endif
 
-void loop()
+void loop ()
 {}

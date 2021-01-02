@@ -1,0 +1,117 @@
+Include the TouchBar library like so:
+#include <TouchBar.h>
+For ESP8266 only if you need to save the settings using EEPROM library
+#include <EEPROM.h>
+
+
+
+### Common Object ###
+Declaration should be like so(and only 1 should be declared, and shared by all the TouchBar objects):
+TouchBarCommon CommonObject = {300, 60}; <<< The order in which the variables are given is: TapTimeout, TwitchSuppressionDelay
+
+// Variables and Methods you can use
+TapTimeout <<< Valid range: TapTimeout > 0; This controls how fast a tap should be to avoid sensing as a tap when you change your mind, about adjustment but you already put your finger on the bar. The value should be just high enough so it doesn't misses the tap when you're actially tapping, but low enough to avoid acciendtal taps when you put your finger on the bar, and take it away.
+TwitchSuppressionDelay <<< Valid range: 0 - 255; This is a form of advanced parallel debouncing to avoid double reads, but allow fast swipe. It suppresses fast change on the last active pad, but passes change immediately on any other pad. You want this to be high enough so that it doesn't accidentally read oscillation as tap, when you barely touching the pad, but as low as possible cause this adds some input lag for tapping(not for swiping).
+
+// For ESP 8266 without MPR121
+TouchBarCommon CommonObject = {800, 250}; // Note that if your ESP runs faster then 40MHz you need to reduce resistor value even lower then 330K cause TwitchSuppressionDelay only goes up to 255.
+
+// For both arduino and ESP 8266 with MPR121
+TouchBarCommon Common = {140, 20}; // Speed limited by I2C port bandwidth...
+
+
+
+### Config Object(s) ###
+Even if you only use a single mode, you should creat a config array. The reason for that is: A) The Save/LoadTouchBarConfig() functions expects a TouchBarCommon object(single object) pointer, and a TouchBarConfig object array(arrays are of course passed on as pointers) if you're using it. B) Faster to add another set of config settings, and later if you have to, and/or swap settings cause you only have to change it's number, not the name.(...but of course you have to remember which contains which mode.)
+
+Declare it like so("x" represents the number of configuration objects you want to declare.):
+TouchBarConfig ConfigObject[x];
+
+You have to give a value to each of it's variables. You can do that by pasting the followin in the setup() function (Values may need some adjustment, use only one of the SetFlags() methods the other should be commented or omitted):
+ConfigObject[0].Default = 5000;
+ConfigObject[0].Limit = 10000;
+ConfigObject[0].Resolution = 100;
+ConfigObject[0].RampDelay = 100;
+ConfigObject[0].RampResolution = 25;
+Config[0].SetFlags(false, true, false, false);
+//Config[0].SetFlags (true, false);
+
+// Variables and Methods you can use
+ConfigObject[0].Default <<< Valid range: 0 to Limit; The Reset() method will set this as positon or target.
+ConfigObject[0].Limit <<< Valid range: Limit > 3 && Limit < 65535 && Limit > Resolution && Limit > RampResolution; 10000 limit gives a nice percentage from 0.00 to 100.00 with 2 decimal places if you get the position/target values as floats.
+ConfigObject[0].Resolution <<< Valid range: Resolution > 0 && Resolution < Limit; You have to scroll for quite a while if you set this to 1 and the limit to 10000, using more then one mode you can have finer, and coarser adjustment on the same touchbar... check the TouchBar-ArduinoPins example to see how to change mode when function pad is held.
+ConfigObject[0].RampDelay <<< Valid range: 0 to 255; Defines delay between automatic adjustment steps. It's in cycles of executon not ms or us, thus depends on execution speed.
+ConfigObject[0].RampResolution <<< Valid range: RampResolution > 0 && RampResolution < Limit; Same as resolution, but for automatic adjustment. This can be finer then the resolution.
+ConfigObject[0].SetFlags() <<< This one is overloaded. You either give it 2 boolean values a RollOver flag and a Flip flag OR you give it 4 boolean flags in SpringBack, Snap, Ramp and Flip order.
+ConfigObject[0].GetRollOverFlag()
+ConfigObject[0].GetSpringBackFlag()
+ConfigObject[0].GetSnapFlag()
+ConfigObject[0].GetRampFlag()
+ConfigObject[0].GetFlipFlag()
+
+
+
+### TouchBar Object(s) ###
+Declare it like so:
+TouchBar TouchBarObject(&CommonObject, &ConfigObject[0]);
+
+// Methods you can use
+TouchBarObject.Reconfigure() <<< Takes a single configuration object pointer like so: &ConfigObject[0]
+TouchBarObject.Update() <<< This is overloaded, it either takes 3 boolean values (the output of 3 TouchLib objects) or 1 byte (the output of the AdafruitMPR121 library). You have to call this in the loop() function once.
+TouchBarObject.SetPosition() <<< Use this in case there's something else in your program that should change the position
+TouchBarObject.SetTarget() <<< Use this instead SetPosition() if you have Ramp flag set.
+TouchBarObject.Reset() <<< Reset position or target to default position.
+TouchBarObject.PadEvent() <<< Tap detection
+TouchBarObject.Event() <<< Slide detection
+TouchBarObject.GetPositionInt() <<< Returns Position as unsigned int value
+TouchBarObject.GetPositionFloat() <<< Returns Position as float value
+TouchBarObject.GetTargetInt() <<< Returns Target as unsigned int value (Target is only relevant when Ramp flag is set)
+TouchBarObject.GetTargetFloat() <<< Returns Target as float value (Target is only relevant when Ramp flag is set)
+
+
+
+### Saving/Loading to EEPROM ###
+Saving and loading all the settings is easy. Both function accepts the same things: CommonObject pointer, entire ConfigObject array, array size, and EEPROM addres.
+It will use sizeof(CommonObject) + sizeof(ConfigObject) bytes of EEPROM incrementing from the given address. (It is your job to make sure it has enough space for all the config though...)
+(It uses EEPROM.update(), so safe to leave it uncommented.)
+SaveTouchBarConfig (&CommonObject, ConfigObject, sizeof(ConfigObject)/sizeof(ConfigObject[0]), EEPROMAddress);
+LoadTouchBarConfig (&CommonObject, ConfigObject, sizeof(ConfigObject)/sizeof(ConfigObject[0]), EEPROMAddress);
+
+// For ESP8266 (...cause it doesn't have EEPROM, it uses a portion of flash to save data.)
+EEPROM.begin(SizeOfEEPROMInBytes); // only once, in setup () before calling SaveTouchBarConfig () or LoadTouchBarConfig ()
+
+
+
+### Fine tuning ###
+Generally you wanna satart with loose values, with room to adjust. Start with the following values:
+TouchBarCommon CommonObject = {500, 1}; // Make the first value 1000 or even higher for an 8Mhz arduino... Make the first value over 2000 for ESP8266...
+
+ConfigObject[0].Default = 5000;
+ConfigObject[0].Limit = 10000;
+ConfigObject[0].Resolution = 100;
+ConfigObject[0].RampDelay = 100;
+ConfigObject[0].RampResolution = 25;
+ConfigObject[0].SetFlags(false, true, false, false);
+
+You may get away with using the values from an example sketch, but if you really want your program to work well, or your arduino works on other then 16MHz, you may want to do this twice. Before and after you finished your program.
+(If you're using my TouchLib library as well, you may want to tune that first to get the sensitivity of the touch pads just right, and tune the the TouchBar, when you know the pads work as they supposed to.
+Generally you want the Pads A,B and C as sensitive as possible(as it is by default), but any individual pads like the function pad less sensitive.)
+
+- First: Start raising the TwitchSuppression delay (CommonObject second value) and raise it until it doesn't misses a fast tap, but you don't get any bursts of a single pad being touched, released, touched release, (...) when you're draging your finger on the bar, barely touching it.
+
+- Second: Lower the TapTimeout (first value of the CommonObject) until you don't get taps* as you lightly drag your finger on the bar.
+(* It can be tweaked fairly well, but it's never gonna be perfect, if you go crazy on the pads you still gonna get occasinal false taps, since it uses the same pads!
+This library is meant to use the fewest number of touch inputs possible that allows for low latency, and easy done at hone by an experienced DIY-er, which is 3 pads.
+If you want perfect you have the following options:
+1. You use the function pad to change mode and thus enable snap functionality while holding the funcion pad.
+2. You will need to print a bar without the 3 snap pads, make your own snap pads that you connect to 3 other pins, disabling the builtin snap functionality and implement your own by manipulating the position and/or target variables of the TouchBar object. This sacrifices 3 additional input pins for the convenience of not having to hold the function pad while haveing reliable snap functionality.
+Both of that are outside the scope of this library...)
+
+- Last: you want to tweak these 3 config values
+ConfigObject[0].Resolution = 100;
+ConfigObject[0].RampDelay = 100;
+ConfigObject[0].RampResolution = 25;
+The Default, Limit, and Flags are entirely up to you, they should not need tweaking...
+  - Resolution - A touch bar has the resolution of number of stripes * 2 - 2. If you want to be able to adjust the position/target by a single full swipe, you want to set the resolution to Limit / (number of stipes * 2 - 2). Other then that set it higher for coarser adjustment, or lower for finer.
+  - RampDelay - It is influenced by frequency and the lenghth of your program, since it works by counting execution cycles(increments every time you call the TouchBarObject.Update() method till it reaches the set delay, then it resets the counter, and increments/decrements position by RampResolution)
+  - RampResolution - It does the same as resolution, but it refers to automatic adjustment, when Target != Position. When Ramp flag is set, you can manually adjust the Target, the position will follow gradually it's speed depending on the RampDelay(the lower the faster), and it's resolution on RampResolution. The idea is that you set the resolution to coarse, and RampResolution to a fine, and you can set the Target from 0 to 10000 with a single swipe, whit no sudden change in Position. (You can also check the Config[0] vs Config[1] settings in the TouchBar-ArduinoPins example to see how it meant to work.)

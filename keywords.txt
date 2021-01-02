@@ -1,11 +1,17 @@
 HexaLib	KEYWORD1
 
+
+
 ### HexaLog ###
 Log	KEYWORD2
 LogSettings	KEYWORD2
 
+
+
 ### RNGInit ###
 RNGInit	KEYWORD2
+
+
 
 ### DynamicID ###
 DynamicID	KEYWORD1
@@ -13,3 +19,68 @@ Create	KEYWORD2
 Check	KEYWORD2
 Delete	KEYWORD2
 User	KEYWORD2
+
+
+
+### Delinearizer ###
+# Calculation
+Logarithmic	KEYWORD2
+InverseLogarithmic	KEYWORD2
+SCurve	KEYWORD2
+# Conversion
+FtoI	KEYWORD2
+ItoF	KEYWORD2
+
+
+
+### TouchLib ###
+TouchLib	KEYWORD1
+# Constructors
+AnalogTouch	KEYWORD1
+DigitalTouch	KEYWORD1
+# Control Methods
+SetCalibLimit	KEYWORD2
+SetThreshold	KEYWORD2
+# Operation
+Calibrate	KEYWORD2
+Read	KEYWORD2
+ReadState	KEYWORD2
+
+
+
+### TouchBar ###
+# Constructor
+TouchBar	KEYWORD1
+TouchBarCommon	KEYWORD1
+TouchBarConfig	KEYWORD1
+# Common Variables
+TapTimeout	KEYWORD2
+TwitchSuppressionDelay	KEYWORD2
+# Config Variables
+Default	KEYWORD2
+Limit	KEYWORD2
+Resolution	KEYWORD2
+RampDelay	KEYWORD2
+RampResolution	KEYWORD2
+# Config Methods
+SetFlags	KEYWORD2
+GetRollOverFlag	KEYWORD2
+GetSpringBackFlag	KEYWORD2
+GetSnapFlag	KEYWORD2
+GetRampFlag	KEYWORD2
+GetFlipFlag	KEYWORD2
+# TouchBar Methods
+Reconfigure	KEYWORD2
+Update	KEYWORD2
+SetPosition	KEYWORD2
+SetTarget	KEYWORD2
+Reset	KEYWORD2
+PadEvent	KEYWORD2
+Event	KEYWORD2
+GetPositionInt	KEYWORD2
+GetPositionFloat	KEYWORD2
+GetTargetInt	KEYWORD2
+GetTargetFloat	KEYWORD2
+# Saving/Loading option
+SaveTouchBarConfig	KEYWORD2
+LoadTouchBarConfig	KEYWORD2

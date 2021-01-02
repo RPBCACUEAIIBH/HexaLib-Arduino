@@ -1,6 +1,6 @@
 #include <HexaLib.h>
 
-void setup()
+void setup ()
 {
   Serial.begin (115200);
   Serial.println ();
@@ -42,7 +42,5 @@ void setup()
   Log (X + " And this works too.", 3, 3);
 }
 
-void loop()
-{
-  
-}
+void loop ()
+{}
