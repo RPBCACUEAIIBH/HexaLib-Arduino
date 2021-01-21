@@ -11,6 +11,7 @@
 float Logarithmic (float Input);
 float InverseLogarithmic (float Input);
 float SCurve (float Input);
+float LearningCurve (float Input); // Learning curve for artificial neurons.
 
 /* Conversion */
 float ItoF (unsigned int Input);

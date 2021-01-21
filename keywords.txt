@@ -27,6 +27,7 @@ User	KEYWORD2
 Logarithmic	KEYWORD2
 InverseLogarithmic	KEYWORD2
 SCurve	KEYWORD2
+LearningCurve	KEYWORD2
 # Conversion
 FtoI	KEYWORD2
 ItoF	KEYWORD2

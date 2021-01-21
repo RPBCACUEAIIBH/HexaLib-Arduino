@@ -1,6 +1,8 @@
 #ifndef DynamicID_H
 #define DynamicID_H
 
+#ifdef ESP8266
+
 #include <Arduino.h>
 #include <Hash.h>
 #include "HexaLog.h"
@@ -22,5 +24,7 @@ class DynamicID
   String Check (String PreviousID);
   void Delete ();
 };
+
+#endif
 
 #endif

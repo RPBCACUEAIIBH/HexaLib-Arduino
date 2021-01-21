@@ -59,8 +59,6 @@ String DynamicID::Check (String PreviousID)
   return "";
 }
 
-#endif
-
 void DynamicID::Delete ()
 {
   DID = "";
@@ -70,3 +68,5 @@ void DynamicID::Delete ()
   Log (F("ID Deleted!"), 4, LibLogSect);
   Log ("", 4, LibLogSect);
 }
+
+#endif

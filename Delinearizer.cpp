@@ -16,9 +16,17 @@ float InverseLogarithmic (float Input)
 float SCurve (float Input)
 {
   if (Input < 50)
-    return (100 / 2 * log10(Input * 99 / 100 + 1)) / ScaleILL;
+    return InverseLogarithmic (Input) / ScaleILL;
   else
-    return ((100 - 100 / 2 * log10(100 - Input * 99 / 100)) / ScaleILL + OffsetILL);
+    return Logarithmic (Input) / ScaleILL + OffsetILL;
+}
+
+float LearningCurve (float Input)
+{
+  if (Input < 49.99999)
+    return 49.99144 - SCurve (50 - Input);
+  else
+    return SCurve (Input - 50) + 49.99144;
 }
 
 /* Conversion */
