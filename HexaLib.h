@@ -3,6 +3,7 @@
 
 #include "HexaLog.h"
 #include "RNGInit.h"
+#include "HWRNG.h"
 #include "DynamicID.h"
 #include "Delinearizer.h"
 #include "TouchLib.h"

@@ -13,6 +13,11 @@ RNGInit	KEYWORD2
 
 
 
+### HWRNG ###
+HWRandom	KEYWORD2
+
+
+
 ### DynamicID ###
 DynamicID	KEYWORD1
 Create	KEYWORD2
@@ -27,10 +32,15 @@ User	KEYWORD2
 Logarithmic	KEYWORD2
 InverseLogarithmic	KEYWORD2
 SCurve	KEYWORD2
-LearningCurve	KEYWORD2
+BellCurve	KEYWORD2
+ReLU	KEYWORD2
+SigmoidExp	KEYWORD2
+SigmoidSine	KEYWORD2
+SigmoidInvLog	KEYWORD2
 # Conversion
 FtoI	KEYWORD2
 ItoF	KEYWORD2
+Trim	KEYWORD2
 
 
 

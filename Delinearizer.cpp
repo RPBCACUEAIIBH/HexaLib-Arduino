@@ -125,22 +125,6 @@ float SigmoidInvLog (float Input, boolean Range)
 
 
 
-/*float TestCurve (float Input, boolean Range)
-{
-  //Input = Trim (Input);
-  //return 50.0 + 50.0 * sin ((-90.0 + Input * (180.0 / 100.0)) * (PI / 180.0));
-  
-  if (Input < -5.0)
-    Input = -5.0;
-  else if (Input > 5.0)
-    Input = 5.0;
-  return sin ((Input * (180.0 / 10.0)) * (PI / 180.0)) / 2.0 + 0.5;
-}// Execution time: us (Range: 0.0 to 100.0); us (Range: -1.0 to 1.0) */
-
-
-
-
-
 /* Conversion */
 
 float ItoF (unsigned int Input)

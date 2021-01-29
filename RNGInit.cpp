@@ -18,10 +18,10 @@ void RNGInit (unsigned int EEPROMAddress)
   for (byte i = 0; i < Y; i++)
     Seed = random ();
   // Save Random seed
-  EEPROM.write (EEPROMAddress, Seed >> 24);
-  EEPROM.write (EEPROMAddress + 1, Seed >> 16);
-  EEPROM.write (EEPROMAddress + 2, Seed >> 8);
-  EEPROM.write (EEPROMAddress + 3, Seed);
+  EEPROM.update (EEPROMAddress, Seed >> 24);
+  EEPROM.update (EEPROMAddress + 1, Seed >> 16);
+  EEPROM.update (EEPROMAddress + 2, Seed >> 8);
+  EEPROM.update (EEPROMAddress + 3, Seed);
   Log ("", 4, LibLogSect);
 }
 #elif ESP8266

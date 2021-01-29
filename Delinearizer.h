@@ -25,10 +25,6 @@ float SigmoidExp (float Input, boolean Range = 1);
 float SigmoidSine (float Input, boolean Range = 1); // This is my invention...
 float SigmoidInvLog (float Input, boolean Range = 1); // Also my invention...
 
-// This is for testing...
-// Default range is from -1.0 to 1.0
-/*float TestCurve (float Input, boolean Range = 1);//*/
-
 /* Conversion and trimming */
 float ItoF (unsigned int Input);
 unsigned int FtoI (float Input);
