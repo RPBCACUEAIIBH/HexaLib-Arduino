@@ -18,6 +18,11 @@ HWRandom	KEYWORD2
 
 
 
+### InternalTemp ###
+InternalTemp	KEYWORD2
+
+
+
 ### DynamicID ###
 DynamicID	KEYWORD1
 Create	KEYWORD2
@@ -95,3 +100,16 @@ GetTargetFloat	KEYWORD2
 # Saving/Loading option
 SaveTouchBarConfig	KEYWORD2
 LoadTouchBarConfig	KEYWORD2
+
+
+
+### CTFArray ###
+# Constructor / destructor
+CTFArray	KEYWORD2
+~CTFArray	KEYWORD2
+# Public Methods
+Check	KEYWORD2
+Length	KEYWORD2
+Size	KEYWORD2
+Put	KEYWORD2
+Get	KEYWORD2

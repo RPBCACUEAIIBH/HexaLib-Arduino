@@ -8,6 +8,8 @@
 #include "Delinearizer.h"
 #include "TouchLib.h"
 #include "TouchBar.h"
+#include "InternalTemp.h"
+#include "CTFArray.h"
 
 #ifndef LibLogSect
 #define LibLogSect 254
