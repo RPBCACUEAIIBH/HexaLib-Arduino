@@ -44,7 +44,7 @@ void CTFArray::Put (unsigned int Position, float Value)
       DecimalPlaces = 2;
     else if (Value > 7.9999 || Value < -7.9999)
       DecimalPlaces = 3;
-    else if (Value > 1.31071 || Value < -1.31071)
+    else if (Value > 1.31070 || Value < -1.31070)
       DecimalPlaces = 4;
     switch (DecimalPlaces)
     {

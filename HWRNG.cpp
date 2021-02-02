@@ -1,5 +1,8 @@
 #include "HWRNG.h"
 
+
+#ifdef AVR
+
 unsigned long HWRandom(void)
 {
   // 32 sample of LSB from internal temperature sensor. (only for Atmega 168A/P 328 and 32u4)
@@ -44,3 +47,5 @@ unsigned long HWRandom(unsigned long Min, unsigned long Max)
     }
   return (X - 1) % (Max - Min) + Min;
 }
+
+#endif

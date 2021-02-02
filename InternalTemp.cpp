@@ -1,5 +1,8 @@
 #include "InternalTemp.h"
 
+
+#ifdef AVR
+
 float InternalTemp()
 {
   ADMUX |= 0xC8; // Set the internal reference and mux.
@@ -13,3 +16,5 @@ void InternalTemp(float offset, float devider)
   Offset = offset;
   Devider = devider;
 }
+
+#endif

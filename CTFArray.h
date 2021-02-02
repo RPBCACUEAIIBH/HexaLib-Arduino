@@ -7,7 +7,7 @@
 // 2 Decimal places: ±1023.99
 // 3 Decimal places: ±127.999
 // 4 Decimal places: ±7.9999
-// 5 Decimal places: ±1.31071
+// 5 Decimal places: ±1.31070
 
 #include <Arduino.h>
 #include <HexaLib.h>
@@ -16,7 +16,7 @@ class CTFArray
 {
   private:
   unsigned int CTFArrayLength; //Actual size = ArrLen * 2.5 bytes; (1 sign bit + 2 range bits, + 17 data bits, so 3 bytes for 1 float, +2 bytes for the second, as 2 floats share a byte.)
-  unsigned int * Array;
+  uint16_t * Array;
   
   public:
   CTFArray (unsigned int ArrayLength);

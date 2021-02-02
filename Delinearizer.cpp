@@ -65,7 +65,7 @@ float BellCurve (float Input, boolean Range)
   }
 }// Execution time: 151.1us (Range: 0.0 to 100.0); 158.828us (Range: -1.0 to 1.0)
 
-float ReLU (float Input, boolean Range = 1)
+float ReLU (float Input, boolean Range)
 {
   if (Range == true)
     return Trim (Input, 0.0, 1.0);
