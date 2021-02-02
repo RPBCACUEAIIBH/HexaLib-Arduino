@@ -15,7 +15,7 @@ List of member libraies:
 - DynamicID library v1.0.1 (ESP8266 only) - Handles IDs, assigning a new one to the user(s) every time the ID is returned. It's more secure then using the same pre-defined ID for every action.
 - CTFArray library v1.0.0 - Compressed Tiny Float Array is a library that allows up to ~35% less memory usage for small floats in exchange for extra cpu cycles. This is great for artificial neurons, and vector stuff. (Most efficient usage is when storing multiples of 4 floats, the bigger the array the better.)
 
-Update (1 Feb 2021):
+Update (2 Feb 2021):
 - Added examples for CTFArray and HWRNG libraries.
 - Fixed auto ranging bug and type mismatch(unsigned int vs uint16_t) that only affected ESP8266 in CTFArray (v1.0.1)
 - Excluded HWRNG, and InternalTemp libraries form non AVR architectures, it caused compillation error on ESP8266.
